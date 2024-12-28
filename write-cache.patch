@@ -1,0 +1,11 @@
+diff --git a/parser/parser.conf b/parser/parser.conf
+index 3909aee..ecfcb2d 100644
+--- a/parser/parser.conf
++++ b/parser/parser.conf
+@@ -77,3 +77,6 @@
+ 
+ ## Pin older policy to the 5.4 kernel abi + out of tree network and af_unix
+ #policy-features=/etc/apparmor.d/abi/kernel-5.4-outoftree-network
++write-cache
++Optimize=compress-fast
++cache-loc /etc/apparmor/earlypolicy/

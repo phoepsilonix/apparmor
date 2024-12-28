@@ -2,7 +2,7 @@
 
 pkgname=apparmor
 pkgver=4.0.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Mandatory Access Control (MAC) using Linux Security Module (LSM)"
 arch=(x86_64)
 url="https://gitlab.com/apparmor/apparmor"
@@ -52,15 +52,18 @@ source=(
   https://launchpad.net/$pkgname/${pkgver%.[0-9]}/$pkgver/+download/$pkgname-$pkgver.tar.gz{,.asc}
   fix-tests-python-3-13.patch
   fix_php-fpm_profiles.patch
+  write-cache.patch
 )
 sha512sums=('8b1240ec56fe4f987edcda9380de685e36f4ac931772e980a8f3655dfbfd7e337a4b15227c7ceecb87d9a2bb592e466ec39912ef8f2fa59f8802464d72df8da2'
             'SKIP'
             '92edba450ed33c1b726581c983d17e4437fe70c7ea07b5baa90168f469a52cb4c560c7ff3d74005456f676a393700a346ffd2058576e63788fe7659b705f7b10'
-            'a70bd317a14eae6dacf1a264fac8c1a990895597f087693834ef7427db358ee616ac9ef34d4477ab945b857175db91986b4e61d2f1b615b563bb244a3e047499')
+            'a70bd317a14eae6dacf1a264fac8c1a990895597f087693834ef7427db358ee616ac9ef34d4477ab945b857175db91986b4e61d2f1b615b563bb244a3e047499'
+            'a4cd59e567939d35afa4a69cd993f7bbcc0e779f6cfcf49c75aa9a1cb785428f66287fa4058324797c748d72da1e267ae6444f2a6bf5b6a22884e37b093f5526')
 b2sums=('715391a1fc0fb57b820a8bcebdc76ae96e436a29546b9c47019f10f4d22942431ba5c878d92bb61b47ff17012e026195b8d7d78a329cc1cc182a31bc3b512e63'
         'SKIP'
         'c8bb529d96ed3f00c7599fbb1d9314d2f2c8c5b15055457cd1450881aa8a5d9468d388da8965f13e6402c391918876358b93f544aeadd5caa75f58a30a1167f0'
-        'ec17a429fa6f3207bb84b132b884e75653f4100404c6b03673aad7fd268c628e3ede4d1a9dec3b00c7d35d7c4ea09e0553b65cc763fcbc9827b449f4d7122e84')
+        'ec17a429fa6f3207bb84b132b884e75653f4100404c6b03673aad7fd268c628e3ede4d1a9dec3b00c7d35d7c4ea09e0553b65cc763fcbc9827b449f4d7122e84'
+        '0ad5035b4d0b142555b2431803a728c645eb1b770385cf1c94f8d35ccb191fd32b46397afbecaf31ba0f59357a8da54ccb9fc2e70c9802ac2569383eecc4174d')
 validpgpkeys=('3ECDCBA5FB34D254961CC53F6689E64E3D3664BB') # AppArmor Development Team (AppArmor signing key) <apparmor@lists.ubuntu.com>
 _core_perl="/usr/bin/core_perl"
 
@@ -76,6 +79,8 @@ prepare() {
   # and https://gitlab.com/apparmor/apparmor/-/commit/6a5432b2b09bf3c08f276ab6bd78b471b1aa35da
   patch -Np1 -i ../fix_php-fpm_profiles.patch
 
+  #manjaro-jp
+  patch -Np1 -i ../write-cache.patch
   cd libraries/libapparmor/
   autoreconf -fiv
 }
